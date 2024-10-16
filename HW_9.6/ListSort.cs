@@ -8,5 +8,22 @@ namespace HW_9._6
 {
     internal class ListSort
     {
+        public delegate void SortDelegate(int x);
+        public event SortDelegate? SortEvent;
+
+        public void ReadSortType()
+        {
+            Console.WriteLine("Метод сортировки:");
+            Console.WriteLine("1 - сортировка от А до Я");
+            Console.WriteLine("2 - Сортировка от Я до А");
+            int sort = Convert.ToInt32(Console.ReadLine());
+            if (sort != 1 && sort != 2) throw new FormatException();
+            Sort(sort);
+        }
+
+        protected virtual void Sort(int sort)
+        {
+            SortEvent?.Invoke(sort);
+        }
     }
 }
